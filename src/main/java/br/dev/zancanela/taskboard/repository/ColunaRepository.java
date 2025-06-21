@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface ColunaRepository extends JpaRepository<Coluna, Long> {
-    List<Coluna> findAllByBoard(Long boardId);
+    List<Coluna> findAllByBoardId(Long boardId);
 
 }

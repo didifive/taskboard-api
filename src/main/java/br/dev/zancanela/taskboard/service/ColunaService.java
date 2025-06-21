@@ -7,6 +7,7 @@ import br.dev.zancanela.taskboard.exception.EntityNotFoundException;
 import br.dev.zancanela.taskboard.repository.ColunaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -34,13 +35,15 @@ public class ColunaService {
     }
 
     public List<Coluna> getColunasByBoard(Long boardId) {
-        return colunaRepository.findAllByBoard(boardId);
+        List<Coluna> colunas = colunaRepository.findAllByBoardId(boardId);
+        colunas.sort(Comparator.comparingInt(Coluna::getOrdem));
+        return colunaRepository.findAllByBoardId(boardId);
     }
 
-    public Coluna updateColuna(Long id, Coluna colunaAtualizada) {
+    public Coluna updateNomeColuna(Long id, String nome) {
         Coluna coluna = getColuna(id);
-        coluna.setNome(colunaAtualizada.getNome());
-        coluna.setOrdem(colunaAtualizada.getOrdem());
+        coluna.setNome(nome);
+
         return colunaRepository.save(coluna);
     }
 
@@ -57,4 +60,5 @@ public class ColunaService {
         }
         colunaRepository.delete(coluna);
     }
+
 }
