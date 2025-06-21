@@ -24,6 +24,7 @@ public class CardService {
     public static final String CANNOT_MOVE_A_BLOCKED_CARD = "Cannot move a blocked card.";
     public static final String NO_BLOQUEIO_FOUND_FOR_THE_CARD = "No bloqueio found for the card.";
     public static final String CARD_IS_NOT_BLOCKED = "Card is not blocked.";
+    public static final String CANNOT_CREATE_A_CARD_IN_A_NON_INITIAL_COLUMN = "Cannot create a card in a non-initial column.";
 
     private final CardRepository cardRepository;
     private final ColunaService colunaService;
@@ -35,6 +36,9 @@ public class CardService {
 
     public Card createCard(Card card) {
         Coluna coluna = colunaService.getColuna(card.getColunaAtual().getId());
+        if (!ColunaTipo.INICIAL.equals(coluna.getTipo())) {
+            throw new BadRequestException(CANNOT_CREATE_A_CARD_IN_A_NON_INITIAL_COLUMN);
+        }
         card.setColunaAtual(coluna);
         card.setBloqueado(false);
         card.setDataCriacao(LocalDateTime.now());

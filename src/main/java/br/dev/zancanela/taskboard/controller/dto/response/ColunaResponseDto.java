@@ -17,7 +17,7 @@ public record ColunaResponseDto(
         Long boardId,
         List<Long> cardIds
 ) {
-    public static synchronized ColunaResponseDto fromEntity(Coluna coluna) {
+    public static ColunaResponseDto fromEntity(Coluna coluna) {
         List<Long> cardIds = coluna.getCards() != null
                 ? coluna.getCards().stream().map(Card::getId).toList()
                 : List.of();
@@ -31,7 +31,7 @@ public record ColunaResponseDto(
         );
     }
 
-    public static synchronized List<ColunaResponseDto> fromListEntity(List<Coluna> colunas) {
+    public static List<ColunaResponseDto> fromListEntity(List<Coluna> colunas) {
         return colunas.stream().map(ColunaResponseDto::fromEntity).toList();
     }
 }

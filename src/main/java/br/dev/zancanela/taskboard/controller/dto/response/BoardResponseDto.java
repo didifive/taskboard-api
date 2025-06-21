@@ -8,11 +8,11 @@ public record BoardResponseDto(
         Long id,
         String name
 ) {
-    public static synchronized BoardResponseDto fromEntity(Board board) {
+    public static BoardResponseDto fromEntity(Board board) {
         return new BoardResponseDto(board.getId(), board.getNome());
     }
 
-    public static synchronized List<BoardResponseDto> fromListEntity(List<Board> boards) {
+    public static List<BoardResponseDto> fromListEntity(List<Board> boards) {
         return boards.stream().map(BoardResponseDto::fromEntity).toList();
     }
 }
