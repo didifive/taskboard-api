@@ -1,0 +1,58 @@
+@startuml
+enum ColunaTipo {
+  INICIAL
+  PENDENTE
+  FINAL
+  CANCELAMENTO
+}
+
+class Board {
+  - Long id
+  - String nome
+  - List<Coluna> colunas
+}
+
+class Coluna {
+  - Long id
+  - String nome
+  - Integer ordem
+  - ColunaTipo tipo
+  - Board board
+  - List<Card> cards
+}
+
+class Card {
+  - Long id
+  - String titulo
+  - String descricao
+  - LocalDateTime dataCriacao
+  - boolean bloqueado
+  - Coluna colunaAtual
+  - List<CardMovimentacao> movimentacoes
+  - List<CardBloqueio> bloqueios
+}
+
+class CardMovimentacao {
+  - Long id
+  - LocalDateTime dataEntrada
+  - LocalDateTime dataSaida
+  - Card card
+  - Coluna coluna
+}
+
+class CardBloqueio {
+  - Long id
+  - String motivoBloqueio
+  - String motivoDesbloqueio
+  - LocalDateTime dataBloqueio
+  - LocalDateTime dataDesbloqueio
+  - Card card
+}
+
+Board "1" o-- "*" Coluna
+Coluna "1" o-- "*" Card
+Card "1" o-- "*" CardMovimentacao
+Card "1" o-- "*" CardBloqueio
+ColunaTipo <.. Coluna
+
+@enduml
