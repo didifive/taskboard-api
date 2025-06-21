@@ -16,7 +16,7 @@ public class Board {
 
     private String nome;
 
-    @OneToMany(mappedBy = "board")
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Coluna> colunas;
 
 }

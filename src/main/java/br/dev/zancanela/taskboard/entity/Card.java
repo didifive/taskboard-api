@@ -24,11 +24,9 @@ public class Card {
     @JoinColumn(name = "coluna_atual_id")
     private Coluna colunaAtual;
 
-    @OneToMany(mappedBy = "card")
+    @OneToMany(mappedBy = "card", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CardMovimentacao> movimentacoes;
 
-    @OneToMany(mappedBy = "card")
+    @OneToMany(mappedBy = "card", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CardBloqueio> bloqueios;
-
-    // getters e setters
 }
