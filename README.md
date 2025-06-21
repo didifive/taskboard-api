@@ -15,6 +15,7 @@ garantindo que os cards possam ser movidos entre colunas de acordo com as regras
 - Liquidbase (para versionamento do banco de dados)
 - PostgreSQL (para persistência de dados)
 - Lombok (para redução de boilerplate code)
+- SpringDoc (para documentação da API)
 
 ### 🚀 Desafio
 Descrição base e completa do Desafio: [Desafio Taskboard Java]
@@ -43,6 +44,57 @@ Escreva um código que irá criar um board customizável para acompanhamento de 
 2. O código deve gerar um relatório do board selecionado com o tempo que cada tarefa demorou para ser concluída com informações do tempo que levou em cada coluna
 3. O código dever gerar um relatório do board selecionado com o os bloqueios dos cards, com o tempo que ficaram bloqueados e com a justificativa dos bloqueios e desbloqueios.
 
+## ▶️ Como Executar o Projeto
+
+1. **Clone o repositório:**
+   ```sh
+   git clone <URL_DO_REPOSITORIO>
+   cd <nome-do-projeto>
+   ```
+
+2. **Configure o banco de dados PostgreSQL**
+   Execute o comando para criar container Docker do PostgreSQL:
+   ```sh
+    docker run --name postgres-taskboard -e POSTGRES_USER=taskboard -e POSTGRES_PASSWORD=taskboard -e POSTGRES_DB=taskboard -p 5432:5432 -d postgres
+    ```
+   ou execute o `docker-compose`:
+   ```sh
+    docker-compose up -d
+    ```
+   
+   Certifique-se de que o banco está rodando e as variáveis de ambiente estão corretas no `application.properties`.
+
+3. **Instale as dependências:**
+   Certifique-se de ter o Maven instalado e execute o seguinte comando para instalar as dependências do projeto:
+   ```sh
+   ./mvnw clean install
+   ```
+   ou, no Windows:
+   ```sh
+   mvnw clean install
+   ```
+ 
+5. **Inicie a aplicação:**
+   Após instalar as dependências e configurar o banco de dados, você pode iniciar a aplicação Spring Boot. Execute o seguinte comando:
+   ```sh
+   ./mvnw spring-boot:run
+   ```
+   ou, no Windows:
+   ```sh
+   mvnw spring-boot:run
+   ```
+   
+6. **Acesse a API:**
+   Após iniciar a aplicação, você pode acessar a API através do seguinte endereço:
+   ```
+   http://localhost:8080
+   ```
+
+### Documentação da API
+A documentação da API está disponível através do SpringDoc. Você pode acessá-la em:
+```
+http://localhost:8080/swagger-ui.html
+```
 
 ---
 Criado com apoio do GitHub Copilot 🤖, paixão ❤️, dedicação 💪 e o compromisso sincero de aprender 📚 e compartilhar conhecimento 🌍
