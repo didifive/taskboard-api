@@ -61,7 +61,7 @@ A documentação da API é gerada automaticamente pelo SpringDoc e pode ser aces
 facilitando a visualização e testes das rotas disponíveis.
 
 #### Endpoints Board
-![Endpoints Board](docs/images/class-diagram.png)
+![Endpoints Board](docs/images/swagger-endpoints-board.png)
 Endpoints disponíveis para manipulação dos boards.
 
 #### Endpoints Coluna
