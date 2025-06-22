@@ -44,6 +44,38 @@ Escreva um código que irá criar um board customizável para acompanhamento de 
 2. O código deve gerar um relatório do board selecionado com o tempo que cada tarefa demorou para ser concluída com informações do tempo que levou em cada coluna
 3. O código dever gerar um relatório do board selecionado com o os bloqueios dos cards, com o tempo que ficaram bloqueados e com a justificativa dos bloqueios e desbloqueios.
 
+## 🖼️ Visuais
+
+### 📐 Diagrama de Classes
+![Diagrama de Classes](docs/images/class-diagram.png)  
+O diagrama de classes acima representa a estrutura do projeto, incluindo as principais classes e suas relações.
+Ele foi gerado utilizando o plugin do IntelliJ IDEA "PlantUML Integration" e o arquivo `class-diagram.puml` localizado na pasta `docs/diagrams`.
+
+### Spring Banner
+![Spring Banner](docs/images/spring-banner.png)
+Banner personalizado do Spring Boot que é exibido no console ao iniciar a aplicação.
+
+### Swagger UI
+![Swagger UI](docs/images/swagger.png)
+A documentação da API é gerada automaticamente pelo SpringDoc e pode ser acessada através do Swagger UI,
+facilitando a visualização e testes das rotas disponíveis.
+
+#### Endpoints Board
+![Endpoints Board](docs/images/class-diagram.png)
+Endpoints disponíveis para manipulação dos boards.
+
+#### Endpoints Coluna
+![Endpoints Coluna](docs/images/swagger-endpoints-coluna.png)
+Endpoints disponíveis para manipulação das colunas.
+
+#### Endpoints Card
+![Endpoints Card](docs/images/swagger-endpoints-card.png)
+Endpoints disponíveis para manipulação dos cards.
+
+#### Schemas
+![Schemas](docs/images/swagger-schemas.png)
+Schemas disponíveis na API, incluindo os modelos de Board, Coluna, Card e erro.
+
 ## ▶️ Como Executar o Projeto
 
 1. **Clone o repositório:**
