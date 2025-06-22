@@ -80,8 +80,8 @@ Schemas disponíveis na API, incluindo os modelos de Board, Coluna, Card e erro.
 
 1. **Clone o repositório:**
    ```sh
-   git clone <URL_DO_REPOSITORIO>
-   cd <nome-do-projeto>
+   git clone https://github.com/didifive/taskboard-api.git
+   cd taskboard-api
    ```
 
 2. **Configure o banco de dados PostgreSQL**
