@@ -12,7 +12,6 @@ import br.dev.zancanela.taskboard.repository.CardRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,6 +25,7 @@ public class CardService {
     public static final String CARD_IS_NOT_BLOCKED = "Card is not blocked.";
     public static final String CANNOT_CREATE_A_CARD_IN_A_NON_INITIAL_COLUMN = "Cannot create a card in a non-initial column.";
     public static final String CANCELAMENTO_COLUMN_NOT_FOUND_FOR_THE_BOARD = "Cancelamento column not found for the board.";
+    public static final String CARD_IS_ALREADY_IN_THE_CANCELAMENTO_COLUMN = "Card is already in the cancelamento column.";
 
     private final CardRepository cardRepository;
     private final ColunaService colunaService;
@@ -100,9 +100,7 @@ public class CardService {
         novaMovimentacao.setCard(card);
         novaMovimentacao.setColuna(novaColuna);
 
-        List<CardMovimentacao> movimentacoes = new ArrayList<>(card.getMovimentacoes());
-        movimentacoes.add(novaMovimentacao);
-        card.setMovimentacoes(movimentacoes);
+        card.getMovimentacoes().add(novaMovimentacao);
 
         return cardRepository.save(card);
     }
@@ -115,14 +113,18 @@ public class CardService {
                 .findFirst()
                 .orElseThrow(() -> new EntityNotFoundException(CANCELAMENTO_COLUMN_NOT_FOUND_FOR_THE_BOARD));
 
+        if (colunaCancelamento.equals(card.getColunaAtual())) {
+            throw new BadRequestException(CARD_IS_ALREADY_IN_THE_CANCELAMENTO_COLUMN);
+        }
+
         CardMovimentacao cancelamentoCard = new CardMovimentacao();
         cancelamentoCard.setDataEntrada(LocalDateTime.now());
         cancelamentoCard.setCard(card);
         cancelamentoCard.setColuna(colunaCancelamento);
 
-        List<CardMovimentacao> movimentacoes = new ArrayList<>(card.getMovimentacoes());
-        movimentacoes.add(cancelamentoCard);
-        card.setMovimentacoes(movimentacoes);
+        card.setColunaAtual(colunaCancelamento);
+
+        card.getMovimentacoes().add(cancelamentoCard);
 
         return cardRepository.save(card);
 
@@ -140,9 +142,7 @@ public class CardService {
         cardBloqueio.setMotivoBloqueio(motivoBloqueio);
         cardBloqueio.setCard(card);
 
-        List<CardBloqueio> bloqueios = new ArrayList<>(card.getBloqueios());
-        bloqueios.add(cardBloqueio);
-        card.setBloqueios(bloqueios);
+        card.getBloqueios().add(cardBloqueio);
 
         return cardRepository.save(card);
     }
