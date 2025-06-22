@@ -45,7 +45,8 @@ public class BoardController implements BoardControllerDocs {
     public ResponseEntity<BoardResponseDto> createBoard(@RequestParam String name) {
         Board board = boardService.createBoard(name);
 
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+        URI uri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/api/board/{id}")
                 .buildAndExpand(board.getId().toString()).toUri();
         return ResponseEntity.created(uri).body(BoardResponseDto.fromEntity(board));
     }

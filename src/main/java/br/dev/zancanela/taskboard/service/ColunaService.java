@@ -37,7 +37,7 @@ public class ColunaService {
     public List<Coluna> getColunasByBoard(Long boardId) {
         List<Coluna> colunas = colunaRepository.findAllByBoardId(boardId);
         colunas.sort(Comparator.comparingInt(Coluna::getOrdem));
-        return colunaRepository.findAllByBoardId(boardId);
+        return colunas;
     }
 
     public Coluna updateNomeColuna(Long id, String nome) {

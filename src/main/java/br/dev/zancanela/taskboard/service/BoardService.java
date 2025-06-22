@@ -82,7 +82,7 @@ public class BoardService {
         boolean allColunasWithoutCards = colunaService.getColunasByBoard(id).stream()
                 .allMatch(coluna -> coluna.getCards().isEmpty());
 
-        if (allColunasWithoutCards) {
+        if (!allColunasWithoutCards) {
             throw new DataIntegrityViolationException(CANNOT_DELETE_THE_BOARD_WITH_ASSOCIATED_CARDS);
         }
 

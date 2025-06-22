@@ -37,7 +37,7 @@ public class CardController implements CardControllerDocs {
                             .collect(Collectors.joining("||")));
         }
 
-        Card card = cardRequestDto.toEntity();
+        Card card = cardService.createCard(cardRequestDto.toEntity());
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(card.getId().toString()).toUri();
@@ -73,6 +73,14 @@ public class CardController implements CardControllerDocs {
             @PathVariable Long colunaId) {
         return ResponseEntity.ok(CardResponseDto.fromEntity(
                 cardService.moveCard(id, colunaId)
+        ));
+    }
+
+    @PatchMapping("/{id}/cancela")
+    public ResponseEntity<CardResponseDto> cancelaCard(
+            @PathVariable Long id) {
+        return ResponseEntity.ok(CardResponseDto.fromEntity(
+                cardService.cancelaCard(id)
         ));
     }
 

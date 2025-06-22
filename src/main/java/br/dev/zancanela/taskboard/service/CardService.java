@@ -25,6 +25,7 @@ public class CardService {
     public static final String NO_BLOQUEIO_FOUND_FOR_THE_CARD = "No bloqueio found for the card.";
     public static final String CARD_IS_NOT_BLOCKED = "Card is not blocked.";
     public static final String CANNOT_CREATE_A_CARD_IN_A_NON_INITIAL_COLUMN = "Cannot create a card in a non-initial column.";
+    public static final String CANCELAMENTO_COLUMN_NOT_FOUND_FOR_THE_BOARD = "Cancelamento column not found for the board.";
 
     private final CardRepository cardRepository;
     private final ColunaService colunaService;
@@ -104,6 +105,27 @@ public class CardService {
         card.setMovimentacoes(movimentacoes);
 
         return cardRepository.save(card);
+    }
+
+    public Card cancelaCard(Long id) {
+        Card card = getCard(id);
+
+        Coluna colunaCancelamento = colunaService.getColunasByBoard(card.getColunaAtual().getBoard().getId()).stream()
+                .filter(c -> ColunaTipo.CANCELAMENTO.equals(c.getTipo()))
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException(CANCELAMENTO_COLUMN_NOT_FOUND_FOR_THE_BOARD));
+
+        CardMovimentacao cancelamentoCard = new CardMovimentacao();
+        cancelamentoCard.setDataEntrada(LocalDateTime.now());
+        cancelamentoCard.setCard(card);
+        cancelamentoCard.setColuna(colunaCancelamento);
+
+        List<CardMovimentacao> movimentacoes = new ArrayList<>(card.getMovimentacoes());
+        movimentacoes.add(cancelamentoCard);
+        card.setMovimentacoes(movimentacoes);
+
+        return cardRepository.save(card);
+
     }
 
     public Card bloquearCard(Long id, String motivoBloqueio) {

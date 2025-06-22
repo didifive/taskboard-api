@@ -67,6 +67,17 @@ public interface CardControllerDocs {
             Long id,
             Long colunaId);
 
+    @Operation(summary = "Cancela um card",
+            description = "Move um card para a coluna de cancelamento")
+    @ApiResponse(responseCode = "200", description = "Card cancelado com sucesso")
+    @ApiResponse(responseCode = "404",
+            description = "Card não encontrado",
+            content = @Content(schema = @Schema(implementation = ApiErrorDto.class)))
+    @ApiResponse(responseCode = "404",
+            description = "Coluna CANCELAMENTO não encontrada no board",
+            content = @Content(schema = @Schema(implementation = ApiErrorDto.class)))
+    ResponseEntity<CardResponseDto> cancelaCard(Long id);
+
     @Operation(summary = "Bloqueia um card",
             description = "Bloqueia um card com o id especificado")
     @ApiResponse(responseCode = "200", description = "Card bloqueado com sucesso")
